@@ -18,7 +18,6 @@
 *	Then recalculate the H value to this modified board.
 *	Continue this process until none of the queens are in attacking positions, i.e., we get a H value of 0.
 
-
 ## Hill Climbing algorithm for 9/8 heavy queens
 *	I choose the random restart method of the hill climbing algorithm.
 *	Create a random board of size 8 with 9 queens in it.
@@ -28,3 +27,37 @@
 *	Find the neighbour with the least cost. If this cost in lower than the cost of the initial node, then this neighbour becomes the initial node. If not, we perform a random restart and create a new random board and set it to the initial node.
 *	Continue the same process until the time limit is exceeded.
 *	The final board which was set as node will be the outcome of the algorithm.
+
+## Supervides Learning
+Machine Learning techniques are feeded the data generated for the K x K Heavy Queens problem  to predict a heuristic so as to solve the board.
+
+Features: Total Weights, Mean Weights, Median Weights, Heaviest Queen, Lightest Queens, Range Of Weights, Standard Deviations Of Weights, Heaviest Queen Wt Ratios, Lightest Queen Wt Ratios, Queens On Edges, Horizontal Attacks, Attacks By Heaviest Queen, Attacks By Lightest Queens, Heaviest Queen Attacks Ratio, Lightest Queen Attacks Ratio, Final Costs.
+
+Initially a model is trained with the all features in ’weka’ software with m5 attribute selection method and following is the result:
+
+TotalCost = 5.5609 ∗ Total Weights
++28.5654 ∗ Mean Weights
++4.2172 ∗ Median Weights
++(− 12.8935) ∗ Heaviest Queen
++(− 5.0241) ∗ Lightest Queens
++(−5.1879) ∗ Range Of Weights
++7.1239 ∗ Standard Deviations Of Weights
++231.1929 ∗ Heaviest Queen Wt Ratios
++5.3983 ∗ Queens On Edges
++14.7357 ∗ Attacks By Heaviest Queen
++(−2.3722) ∗ Attacks By Lightest Queens
++19.7673 ∗ Heaviest Queen Attacks Ratio
++(−202.6684)
+
+The best features out of them are chosen by plotting a pearson correlation coefficient map. The features witha good correlation with the cost are chosen. Following are the good feature that are found: Total Weights, Heaviest Queen, Lightest Queens, Attacks By Heaviest Queen, Heaviest Queen Attacks Ratio.
+
+This is the model of good features:
+
+TotalCost = 9.6141 ∗ Total Weights
++(−7.495) ∗ Heaviest Queen
++(−3.5481) ∗ Lightest Queens
++10.8857 ∗ Attacks By Heaviest Queen
++34.8749 ∗ Heaviest Queen Attacks Ratio
++(−111.8746)
+
+A sequential multi-layer neural network model is implemented using the tensorflow module with different datasets.
